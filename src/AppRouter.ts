@@ -9,8 +9,4 @@ export class AppRouter {
     }
     return AppRouter.instance
   }
-
-  // applyController (controllerConfig) {
-    
-  // }
 }
