@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { MetadataKeys } from './MetaDataKeys'
+import { MetadataKeys } from './config'
 
 export const bodyValidator = (...keys: string[]) => 
   (target: any, key: string, desc: PropertyDescriptor) => {

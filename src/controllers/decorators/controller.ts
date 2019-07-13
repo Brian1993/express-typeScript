@@ -1,25 +1,8 @@
 import 'reflect-metadata'
-import { Request, Response ,RequestHandler, NextFunction } from 'express'
 import { AppRouter } from '../../AppRouter'
-import { Methods } from './Methods'
-import { MetadataKeys } from './MetaDataKeys'
+import { Methods, MetadataKeys } from './config'
+import { bodyValidator } from '../middlewares'
 
-function bodyValidators (keys: string[]): RequestHandler {
-  return function (req: Request, res: Response, next: NextFunction) {
-    if (!req.body) { 
-      res.status(422).send()
-      return
-    }
-
-    for (let key of keys) {
-      if (!req.body[key]) res.status(422).send('Invalid Request')
-      return
-    }
-
-    console.log('calling next')
-    next()
-  }
-}
 
 export function controller (routePrefix: string) {
   return function (target: Function) {
@@ -41,10 +24,9 @@ export function controller (routePrefix: string) {
         key
       ) || {}
 
-      const validator = bodyValidators(requiredBodyProps)
+      const validator = bodyValidator(requiredBodyProps)
 
       if (path) {
-        console.log('routeHandler', )
         router[method](`${routePrefix}${path}`, ...middlewares, validator, routeHandler)
       }
     }

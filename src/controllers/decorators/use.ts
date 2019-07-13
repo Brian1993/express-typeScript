@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { RequestHandler } from 'express'
-import { MetadataKeys } from './MetaDataKeys'
+import { MetadataKeys } from './config'
 
 export const use = (middleware: RequestHandler) =>
   (target: any, key: string, desc: PropertyDescriptor) => {
